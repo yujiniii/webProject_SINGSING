@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <%- include('includes/head', { title: 'Update post' }) %>
+  <link rel="stylesheet" href="/styles/forms.css">
+</head>
+
+<body>
+  <%- include('includes/header') %>
+  <main>
+    <h1>Update post</h1>
+    <form action="/posts/<%=post.id%>/edit" method="POST">
+      <div class="form-control">
+        <label for="title">이   름 : </label>
+        <input type="text" id="title" name="title" required>
+      </div>
+      <div class="form-control">
+        <label for="code">품   번 : </label>
+        <input type="text" id="code" name="code" required maxlength="255">
+      </div>
+      <div class="form-control">
+        <label for="status">상   태 : </label>
+        <select id="status" name="status">
+          <% for(const class of status) {%>
+            <option value="<%=class._id%> "><%= class.content %></option>
+          <% } %>
+        </select>
+      </div>
+      <div class="form-control">
+        <label for="detail">설   명 : </label>
+        <textarea id="detail" name="detail" required rows="5"></textarea>
+      </div>
+      
+      <button class="btn">저장</button>
+    </form>
+  </main>
+</body>
+
+</html>
