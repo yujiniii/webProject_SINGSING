@@ -1,18 +1,17 @@
 <article class="post-item">
   <h2> <%=post.title%> </h2>
   <p class="opst-item-author">품  번 : <%=post.code%> </p>
-  <p> 상   태 : <%=post.status%> </p>
+  <p> 상   태 : <%=post.state%> </p>
   <p> 금   액 : <%=post.price%></p>
   <p> 설   명 : <%=post.detail%></p>
 
 
   <div class="post-actions">
-  <form action="/posts/<%=post.id%>/delete" method="post">
+  <form action="/posts/<%=post._id%>/delete" method="post">
         <button class="btn btn-alt">   
-          Delete Post </button>
+          삭제 </button>
   </form>
-    <a href="/posts/<%=post._id%>/edit">수정하기</a>
-    <a class="btn" href="/posts/<%=post._id%>">구매하기</a>
-   
+    <a class="btnO" href="/posts/<%=post._id%>/edit"><b>수 정</b></a>
+    <a class="btn" href="/posts/<%=post._id%>/buy"><b>구 매</b></a>
   </div>
 </article>

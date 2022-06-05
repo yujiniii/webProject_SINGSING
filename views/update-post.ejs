@@ -20,11 +20,14 @@
         <input type="text" id="code" name="code" required maxlength="255">
       </div>
       <div class="form-control">
-        <label for="status">상   태 : </label>
-        <select id="status" name="status">
-          <% for(const class of status) {%>
-            <option value="<%=class._id%> "><%= class.content %></option>
-          <% } %>
+        <label for="state">상   태 : </label>
+          <select id="state" name="state">
+              <option value="A">A</option>
+              <option value="B">B</option>
+              <option value="C">C</option>
+              <option value="D">D</option>
+              <option value="F">F</option>
+          </select>
         </select>
       </div>
       <div class="form-control">
