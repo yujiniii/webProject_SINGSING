@@ -1,8 +1,7 @@
 const path = require('path');
-
 const express = require('express');
-
 const postRoutes = require('./routes/post');
+const db = require('./database')
 
 const app = express();
 
@@ -23,7 +22,8 @@ app.use(function (error, req, res, next) {
 });
 
 /* webSoket code */
-
-app.listen(3000);
+db.connectToDatabase().then(function(){
+  app.listen(3000);
+}); //db가 있을 때만 서버가 켜지게끔 조절
 
 
