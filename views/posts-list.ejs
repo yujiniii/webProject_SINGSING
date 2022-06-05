@@ -10,19 +10,20 @@
   <%- include('includes/header') %>
   <main id="all-posts">
     <h1>All Posts</h1>
-    <% if (!posts || posts.length === 0){ %>
+    <a class="btn", href="/new-post">내 에어컨 판매하기</a>
+
+  <% if (!posts || posts.length === 0){ %>
       <p>판매중인 에어컨이 없습니다.  </p>
-      <a class="btn", href="/new-post">내 에어컨 판매하기</a>
-    <% } else { %>
-      <ol id="posts-list">
-        <a class="btn", href="/new-post">내 에어컨 판매하기</a>
-    <% for(const post of posts){ %>
-      <li>
-      <%- include('includes/post-item', {post:post})%>
-    </li>
-    <% }%>
-  </ol>
-  <%  }%>
+  <% } else { %>
+      <ol id="posts-list"> 
+        <% for(const post of posts){ %>
+          <li>
+            <%- include('includes/post-item', {post:post})%>
+          </li>
+        <% }%>
+      </ol>
+  <%}%>
+  
   </main> 
 </body>
 
