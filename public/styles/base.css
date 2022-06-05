@@ -1,7 +1,7 @@
 /* Base styles & resets */
 
 html {
-  font-family: 'Roboto Slab', serif;
+  font-family: "Malgun Gothic", serif;
   color: rgb(46, 45, 48);
 }
 
@@ -16,12 +16,12 @@ main {
 
 a {
   text-decoration: none;
-  color:rgb(89, 0, 255);
+  color:rgb(0, 81, 255);
 }
 
 a:hover,
 a:active {
-  color:rgb(232, 90, 245);
+  color:rgb(2, 33, 117);
 }
 
 ul, ol {
@@ -38,7 +38,7 @@ ul, ol {
   background-color: rgb(102, 168, 58);
   border: 1px solid rgb(102, 168, 58);
   color: white;
-  padding: 0.5rem 1.5rem;
+  padding: 0.5rem  0.5rem;
   border-radius: 4px;
 }
 
@@ -57,13 +57,33 @@ ul, ol {
 
 .btn.btn-alt:hover,
 .btn.btn-alt:active {
-  color:rgb(232, 90, 245);
+  color:rgb(2, 33, 117);
 }
+
+
+
+.btnO {
+  cursor: pointer;
+  font: inherit;
+  background-color: rgb(255, 124, 37);
+  border: 1px solid rgb(255, 124, 37);
+  color: white;
+  padding: 0.5rem 0.5rem;
+  border-radius: 4px;
+}
+
+.btnO:hover,
+.btnO:active {
+  background-color: rgb(238, 87, 0);
+  border-color: rgb(238, 87, 0);
+  color: white;
+}
+
 
 /* Site-wide content / elements */
 
 #main-header {
-  padding: 2rem 10%;
+  padding: 1rem 5%;
   background-color: rgb(218, 227, 243);
   display: flex;
   justify-content: space-between;
@@ -73,7 +93,7 @@ ul, ol {
 #logo a {
   font-size: 2rem;
   font-weight: bold;
-  color: white;
+  color: rgb(0, 0, 0);
   font-family: 'Roboto', sans-serif;
 }
 
@@ -86,11 +106,11 @@ ul, ol {
 }
 
 #main-header nav a {
-  color: white;
+  color: rgb(0, 0, 0);
   font-size: 1.25rem;
 }
 
 #main-header nav a:hover,
 #main-header nav a:active {
-  color:rgb(255, 217, 0);
+  color:rgb(2, 33, 117);
 }
