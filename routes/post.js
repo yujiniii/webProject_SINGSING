@@ -8,22 +8,12 @@ router.get('/', function(req,res){
 });
 
 router.get('/posts', async function(req,res){
-    const posts = db.getDb().collection('post').find().toArray()
+    const posts = await db
+    .getDb()
+    .collection('posts')
+    .find({},{ title:1,code:1,state:1,detail:1,price:1 })
+    .toArray()
     res.render('posts-list',{posts:posts});
-});
-
-
-router.post('/update-posts', async function(req,res){
-    const authorId = new ObjectId(req.body.author);
-    const newPost = {
-        title : req.body.title,
-        summary:req.body.summary,
-        body : req.body.content,
-        date:new Date(),
-    };
-    const result =  await db.getDb().collection('posts').updateOne({_id:authorId}, newPost);
-    console.log(result);
-    res.redirect('/posts');
 });
 
 
@@ -31,25 +21,40 @@ router.get('/new-post', async function(req,res){
     res.render('create-post');
 });
 
-router.post('/create-posts', async function(req,res){
+
+router.post('/posts', async function(req,res){
     const newPost = {
         title : req.body.title,
-        summary:req.body.summary,
-        body : req.body.content,
+        code : req.body.code,
+        state : req.body.state,
+        price : req.body.price,
+        detail : req.body.detail,
         date:new Date(),
-        status : req.body.content
     };
     const result =  await db.getDb().collection('posts').insertOne(newPost);
-    console.log(result);
+    console.log(result); 
     res.redirect('/posts');
 });
 
-router.get('/post-detail/:id',async function(req,res){
-    const id = new ObjectId(req.params.id);
-    const post =  await db.getDb().collection('authors').findOne({_id:id});
 
-    res.render('post-detail',{post:post});
+router.get('/posts/:id/buy',async function(req,res){
+    res.send("<script>alert('구매하기')</script>");
+    //res.redirect('/posts');
+    //res.write("<script>window.location=\"../view/notices\"</script>");
 })
+
+router.get('/posts/:id/edit',async function(req,res){
+    res.send("<script>alert('수정하기')</script>");
+    //res.redirect('/posts');
+    //res.write("<script>window.location=\"../view/notices\"</script>");
+})
+
+router.post('/posts/:id/delete',async function(req,res){
+    res.send("<script>alert('삭제하기')</script>");
+    //res.redirect('/posts');
+    //res.write("<script>window.location=\"../view/notices\"</script>");
+})
+
 
 
 
