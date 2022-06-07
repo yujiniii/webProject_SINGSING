@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <%- include('includes/head', { title: '작성자 검증' }) %>
+  <link rel="stylesheet" href="/styles/forms.css">
+</head>
+
+<body>
+  <%- include('includes/header') %>
+  <main>
+    <h1>내 에어컨 판매하기</h1>
+    
+    <h2>게시글 작성 시 입력한 비밀번호를 입력하세요.</h2>
+    <form action="/posts/<%=id%>/edit" method="post">
+      <div class="form-control">
+        <label for="password">  비밀번호 : </label>
+        <input type="password" id="password" name="password" required>
+        <br>
+      <button class="btn">확인하기</button>
+    </form>
+  </main>
+</body>
+
+</html>

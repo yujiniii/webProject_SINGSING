@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path');
 const http = require('http');
+const indexRoutes = require('./routes/index');
 const postRoutes = require('./routes/post');
 const chatRoutes = require('./routes/chat');
 const db = require('./database')
@@ -15,8 +16,9 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(express.urlencoded({ extended: true })); // Parse incoming request bodies
 app.use(express.static('public')); // Serve static files (e.g. CSS files)
 
-app.use('/', postRoutes);
-app.use('/', chatRoutes);
+app.use('/', indexRoutes);
+app.use('/posts', postRoutes);
+app.use('/chat', chatRoutes);
 
 app.use(function (error, req, res, next) {
   // Default error handling function
@@ -24,6 +26,7 @@ app.use(function (error, req, res, next) {
   console.log(error);
   res.status(500).render('500');
 });
+
 
 /* webSoket code */
 db.connectToDatabase().then(function(){
