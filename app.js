@@ -1,37 +1,46 @@
 const express = require('express');
 const path = require('path');
+const fs = require('fs');
 const http = require('http');
 const indexRoutes = require('./routes/index');
 const postRoutes = require('./routes/post');
 const chatRoutes = require('./routes/chat');
+const repairRoutes = require('./routes/repair');
 const db = require('./database')
 const app = express();
 const server = http.Server(app);
 const io = require('socket.io')(server);
 let users = [];
-// Activate EJS view engine
+
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
-app.use(express.urlencoded({ extended: true })); // Parse incoming request bodies
-app.use(express.static('public')); // Serve static files (e.g. CSS files)
+app.use(express.urlencoded({ extended: true })); 
+app.use(express.static('public')); 
+app.use('/images',express.static(path.join(__dirname,'images')));
 
+/* routes */
 app.use('/', indexRoutes);
 app.use('/posts', postRoutes);
+app.use('/repair', repairRoutes);
 app.use('/chat', chatRoutes);
 
 app.use(function (error, req, res, next) {
-  // Default error handling function
-  // Will become active whenever any route / middleware crashes
   console.log(error);
   res.status(500).render('500');
 });
 
+app.use(function (error, req, res, next) {
+  console.log(error);
+  res.status(404).render('404');
+});
 
-/* webSoket code */
 db.connectToDatabase().then(function(){
-  app.listen(3000);
-}); //db가 있을 때만 서버가 켜지게끔 조절
+  app.listen(3000,()=>{
+    const dir = './images';
+    if (!fs.existsSync(dir)) {fs.mkdirSync(dir);}
+  });
+});
 
 
 
