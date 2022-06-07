@@ -1,7 +1,8 @@
-/* All posts page */
+
 
 #all-posts {
   text-align: center;
+  
 }
 
 #posts-list {
@@ -11,8 +12,10 @@
 
 
 #all-posts ol {
+  display: grid;
+  align-items:center;
   list-style:none;
-  margin:0;
+  margin:0,;
   padding:0;
 }
 
@@ -20,7 +23,7 @@
   margin: 0.5rem;
   padding: 0.5rem;
   border : 0;
-  float: left;
+  /*float: left;*/
 }
 .post-item {
   margin: 1rem 0;
@@ -31,28 +34,36 @@
   background-color: rgb(255, 255, 255);
 }
 
-.post-item h2,
-.post-item p {
-  margin: 0.5rem 0;
+.post-item h2{
+  margin: 0.5rem 0.5rem 1rem 0.5rem;
   text-align: center;
 }
 
-.post-item-author {
-  font-style: italic;
+.post-item p {
+  margin: 0.5rem 1rem;
+  text-align: left;
+}
+
+.post-item h2 p {
+  color: red;
+}
+.img-item {
+  float: left;
 }
 
 .post-actions {
   display: flex;
-  justify-content: left;
-  align-items: left;
+  margin-top: 2rem;
+  justify-content: right;
+  align-items: right;
   gap: 1rem;
 }
+
 
 .post-actions .btn-alt {
   padding: 0;
 }
 
-/* Post detail page */
 
 #post-meta {
   color: rgb(156, 149, 149);
