@@ -1,6 +1,11 @@
 <article class="post-item">
-  <h2> <%=post.title%> </h2>
-  <p class="opst-item-author">품  번 : <%=post.code%> </p>
+  <% if ( post.sale === 1){ %>
+    <h2> <p>거래 완료</p><%=post.title%> </h2>
+  <% } else { %>
+    <h2><%= post.title%> </h2>
+  <% } %>
+  <p class="img-item"><img src="<%=post.image%>" alt="<%=post.title%>이미지" width="250px" height="150"></p>
+  <p>품  번 : <%=post.code%> </p>
   <p> 상   태 : <%=post.state%> </p>
   <p> 금   액 : <%=post.price%></p>
   <p> 설   명 : <%=post.detail%></p>
@@ -11,7 +16,14 @@
         <button class="btn btn-alt">   
           삭제 </button>
   </form>
-    <a class="btnO" href="/posts/<%=post._id%>/user-auth"><b>수 정</b></a>
-    <a class="btn" href="/posts/<%=post._id%>/buy"><b>구 매</b></a>
+  <% if ( post.sale === 1){ %>
+    구매 및 수정 불가능
+  <% } else { %>
+    <div>
+      <a class="btnO" href="/posts/<%=post._id%>/user-auth"><b>수 정</b></a>
+      <a class="btn" href="/posts/<%=post._id%>/buy"><b>구 매</b></a>
+    </div>
+  <% } %>
+    
   </div>
 </article>

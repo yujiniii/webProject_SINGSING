@@ -10,18 +10,25 @@
   <%- include('includes/header') %>
   <main>
     <h1>수정하기</h1>
-    <form action="/posts/<%=post.id%>/edit" method="POST">
+    <form action="/posts/<%=post._id%>/edit" method="POST">
+      <div class="form-control">
+        <label for="image"><img src="/<%=post.image%>" alt="" width="500px"></label>
+      </div>
       <div class="form-control">
         <label for="title">이   름 : </label>
-        <input type="text" id="title" name="title" required>
+        <input type="text" id="title" name="title" vlaue="ㅁㅁ<%=post.title%>" required>
       </div>
       <div class="form-control">
         <label for="code">품   번 : </label>
-        <input type="text" id="code" name="code" required maxlength="255">
+        <input type="text" id="code" name="code" vlaue="<%=post.code%>" required maxlength="255">
+      </div>
+      <div class="form-control">
+        <label for="code">금   액 : </label>
+        <input type="text" id="price" name="price" vlaue="<%=post.price%>" required maxlength="255">
       </div>
       <div class="form-control">
         <label for="state">상   태 : </label>
-          <select id="state" name="state">
+          <select id="state" name="state" disabled>
               <option value="A">A</option>
               <option value="B">B</option>
               <option value="C">C</option>
@@ -32,9 +39,12 @@
       </div>
       <div class="form-control">
         <label for="detail">설   명 : </label>
-        <textarea id="detail" name="detail" required rows="5"></textarea>
+        <textarea id="detail" name="detail" vlaue="<%=post.detail%>" required rows="5"></textarea>
       </div>
-      
+      <div class="form-control">
+        <label for="phone_number">판매자 연락처 (010-0000-0000) : </label>
+        <input type="text" id="phone_number" name="phone_number" required maxlength="255">
+      </div>
       <button class="btn">저장</button>
     </form>
   </main>

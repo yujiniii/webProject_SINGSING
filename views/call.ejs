@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <%- include('includes/head', { title: 'Something went wrong!' }) %>
+</head>
+
+<body>
+  <%- include('includes/header') %>
+  <main>
+    <script>confirm('판매자 연락처 : <%=call.phone_number%>')</script>
+    <h1><%=call.title%> 을 구매하였습니다!!</h1>
+    <a class="btn" href="/">돌아가기</a>
+  </main>
+</body>
+
+</html>
