@@ -1,7 +1,7 @@
 {
   "name": "singsing",
   "version": "1.0.0",
-  "description": "",
+  "description": ".",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -13,7 +13,17 @@
     "ejs": "^3.1.8",
     "express": "^4.18.1",
     "mongodb": "^4.6.0",
+    "multer": "^1.4.5-lts.1",
     "nodemon": "^2.0.16",
     "socket.io": "^4.5.1"
-  }
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yujiniii/webProject_demo.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yujiniii/webProject_demo/issues"
+  },
+  "homepage": "https://github.com/yujiniii/webProject_demo#readme"
 }
