@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('includes/head', { title: 'Add new post' }) %>
+    <link rel="stylesheet" href="/styles/forms.css">
+</head>
+<body>
+    <%- include('includes/header') %>
+    <main>
+        <h1>설치/수리 예약하기</h1>
+        <form action="/repair" method="repair" enctype="multipart/form-data">
+        
+            <!-- https://axce.tistory.com/31 -->
+            <div class="form-control">
+                <label for="date">예약날짜 : </label>
+                <input type="datetime-local" id="date" name="date" require maxlength="255">
+            </div>
+            <div class="form-control">
+                <label for="repairman">수리기사 : </label>
+                <select name="repairman" id="repairman">
+                    <option value="김수리">김수리</option>
+                    <option value="이어컨">이어컨</option>
+                    <option value="박기사">박기사</option>
+                </select>
+            </div>
+            <br><hr><br>
+            <div class="form-control">
+                <label for="model">품  명 : </label>
+                <input type="text" id="model" name="model" require maxlength="255">
+            </div>
+            <div class="form-control">
+                <label for="bought">구입시기 : </label>
+                <select name="reason" id="reason">
+                    <option value="1개월 이내">1개월 이내</option>
+                    <option value="1년 이내">1년 이내</option>
+                    <option value="1년~2년 이내">1년~2년 이내</option>
+                    <option value="2년 이상">2년 이상</option>
+                </select>
+            </div>
+            <div class="form-control">
+                <label for="reason">예약이유 : </label>
+                <select name="reason" id="reason">
+                    <option value="냉방">냉방</option>
+                    <option value="난방">난방</option>
+                    <option value="냄새">냄새</option>
+                    <option value="누수">누수</option>
+                    <option value="리모컨/버튼">리모컨/버튼</option>
+                    <option value="소음/진동">소음/진동</option>
+                    <option value="설치/연결">설치/연결</option>
+                </select>
+            </div>
+            <br><hr><br>
+            <div class="form-control">
+                <label for="name">예약자명 : </label>
+                <input type="text" id="name" name="name" require maxlength="255">
+            </div>
+            <div class="form-control">
+                <label for="phone">전화번호 (010-0000-0000) : </label>
+                <input type="text" id="phone" name="phone" require maxlength="255">
+            </div>
+            <div class="form-control">
+                <label for="address">주  소 : </label>
+                <input type="text" id="address" name="address" require maxlength="255">
+            </div>            
+            <br>
+            <button class="btn">예약하기</button>
+            
+
+        </form>
+
+        <!-- <form action="/repair" method="repair">
+            <a href="/repair"></a><button class="btn">예약 목록 보기</button></a>
+        </form> -->
+    </main>
+</body>
+</html>

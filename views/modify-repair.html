@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('includes/head', { title: 'Add new post' }) %>
+    <link rel="stylesheet" href="/styles/forms.css">
+</head>
+<body>
+    <%- include('includes/header') %>
+    <h1>예약내역 수정하기</h1>
+    <form action="/repair<%=repair._id%>/update" method="POST">
+    
+        <div class="form-control">
+            <label for="date">예약날짜 : </label>
+            <input type="datetime-local" id="date" name="date" value="<%=repair.date%>" require maxlength="255">
+        </div>
+        <div class="form-control">
+            <label for="repairman">수리기사 : </label>
+            <select name="repairman" id="repairman" value="<%=repair.repairman%>">
+                <option value="1">김수리</option>
+                <option value="2">이어컨</option>
+                <option value="3">박기사</option>
+            </select>
+        </div>
+
+        <div class="form-control">
+            <label for="model">품  명 : </label>
+            <input type="text" id="model" name="model" value="<%=repair.model%>" require maxlength="255">
+        </div>
+        <div class="form-control">
+            <label for="bought">구입시기 : </label>
+            <select name="reason" id="reason" value="<%=repair.bought%>">
+                <option value="1">1개월 이내</option>
+                <option value="2">1년 이내</option>
+                <option value="3">1년~2년 이내</option>
+                <option value="4">2년 이상</option>
+            </select>
+        </div>
+        <div class="form-control">
+            <label for="reason">예약이유 : </label>
+            <select name="reason" id="reason" value="<%=repair.reason%>">
+                <option value="1">냉방</option>
+                <option value="2">난방</option>
+                <option value="3">냄새</option>
+                <option value="4">누수</option>
+                <option value="5">리모컨/버튼</option>
+                <option value="6">소음/진동</option>
+                <option value="7">설치/연결</option>
+            </select>
+        </div>
+
+        <div class="form-control">
+            <label for="name">예약자명 : </label>
+            <input type="text" id="name" name="name" value="<%=repair.name%>" require maxlength="255">
+        </div>
+        <div class="form-control">
+            <label for="phone">전화번호 (010-0000-0000) : </label>
+            <input type="text" id="phone" name="phone" value="<%=repair.phone%>" require maxlength="255">
+        </div>
+        <div class="form-control">
+            <label for="address">주  소 : </label>
+            <input type="text" id="address" name="address" value="<%=repair.address%>" require maxlength="255">
+        </div>
+
+        <button class="btn">저장</button>
+        <a href="/repair"></a><button class="btn">예약 목록 보기</button></a>
+
+    </form>
+</body>
+</html>
