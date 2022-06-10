@@ -15,7 +15,7 @@
         <ol id="repairs-list">
             <% for(const repair of repairs) { %>
                 <li>
-                    <% include('includes/repair-content', {repair:repair}) %>
+                    <%- include('includes/repair-content', {repair:repair}) %>
                 </li>
             <% } %>
         </ol>

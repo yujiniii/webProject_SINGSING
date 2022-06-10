@@ -1,27 +1,16 @@
 const express = require('express');
 const db = require('../database');
 const mongodb = require('mongodb');
-const router = express.Router();
 const ObjectId = mongodb.ObjectId;
 
 
-// router.get('/', function(req,res){
-//     res.render('404');
-// });
-
-
-router.get('/', async (req,res,next)=>{
-    // DB에서 'repair' collection을 찾아 보여줌
-    const repairs = await db.getDb().collection('repair')
-    .find({}, {date:1, repairman:1,
-        model:1, bought:1, reason:1, name:1}).toArray();
-    
-
-    // repairs-list.ejs
-    res.render('repairs-list', {repairs:repairs});
-}); // 예약 내역 보여주기(READ)
-
-router.post('/', async (req,res,next)=>{
+// 설치 및 수리 화면
+async function newRepair(req, res,next) {
+    // create-repair.ejs
+    res.render('create-repair');
+}
+// 설치 및 수리 예약하기(CREATE)
+async function createRepair(req, res,next) {
     console.log(req.body);
     const newRepair = {
         date : req.body.date,
@@ -39,22 +28,27 @@ router.post('/', async (req,res,next)=>{
     const result = await db.getDb().collection('repair').insertOne(newRepair);
     console.log(result);
     // 완료 후 repairs-list.ejs로 전환
-    res.redirect('/repair');
-}); // 설치 및 수리 예약하기(CREATE)
+    res.redirect('repairs-list');
+}
 
-router.get('/new', async (req,res,next)=>{
-    // create-repair.ejs
-    res.render('create-repair');
-}); // 설치 및 수리 화면
+// 예약 내역 보여주기(READ)
+async function showRepairList(req, res,next) {
+    // DB에서 'repair' collection을 찾아 보여줌
+    const repairs = await db.getDb().collection('repair')
+    .find({name:"김냄새"}, {date:1, repairman:1,
+        model:1, bought:1, reason:1, name:1}).toArray();
+    
 
+    // repairs-list.ejs
+    res.render('repairs-list', {repairs:repairs});
+}
 
-router.get('/:id/user-auth', async (req,res,next)=>{
+// 수정 시 비밀번호 검증화면
+async function authRepair(req, res,next) {
     // user-auth.ejs
     res.render('user-auth', {id : req.params.id})
-}); // 수정 시 비밀번호 검증화면
-
-
-router.post('/:id/user-auth', async (req,res,next)=>{
+}
+async function authPhoneRepair(req, res,next) { 
     const repair = await db.getDb().collection('repair')
     .findOne({_id: new ObjectId(req.params.id)},
     {date:1, repairman:1, model:1, bought:1, reason:1 , 
@@ -65,14 +59,12 @@ router.post('/:id/user-auth', async (req,res,next)=>{
     }
     // 비밀번호가 틀리면 password-error.ejs
     res.render('password-error') 
-}); 
+}
 
-router.get('/:id/update', async (req,res,next)=>{
-    res.render('modify-repair',{repair:req.params.id}) 
-}); // 예약내역 수정하기(UPDATE)
 
-router.post('/:id/update', async (req,res,next)=>{
-    await db.getDb().collection('repair')
+// 예약내역 수정하기(UPDATE)
+async function updateRepair(req, res,next) {
+    await db.getDb().collection('posts')
     .updateOne({_id: new ObjectId(req.params.id)},
     { $set: {
         date : req.body.date,
@@ -87,16 +79,22 @@ router.post('/:id/update', async (req,res,next)=>{
         address : req.body.address
     }});
 res.redirect('/repair')
-}); // 예약내역 수정하기(UPDATE)
+}
 
-
-router.get('/:id/delete', async (req,res,next)=>{
+// 예약내역 삭제하기(DELETE)
+async function deleteRepair(req, res,next) {
     await db.getDb().collection('repair')
     .deleteOne({_id: new ObjectId(req.params.id)});
 
     res.redirect('/repair')
-}); // 예약내역 삭제하기(DELETE)
+}
 
-
-
-module.exports = router;
+module.exports={
+    newRepair,
+    authPhoneRepair,
+    updateRepair,
+    deleteRepair,
+    authRepair,
+    showRepairList,
+    createRepair
+}
