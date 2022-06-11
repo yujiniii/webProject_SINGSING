@@ -20,7 +20,8 @@
             </div>
             <button class="btn">예약내역 확인</button>
         </form>
-        <form action="/repair" method="get">
+        
+        <br><hr><br>
             <% if(!repairs || repairs.length === 0) { %>
                 <p><br>예약 내역이 없습니다.</p>
             <% } else { %>
@@ -32,7 +33,7 @@
                     <% } %>
                 </ol>
             <% } %>
-        </form>
+
 
     
     </main>

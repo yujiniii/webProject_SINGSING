@@ -9,20 +9,19 @@
 
     <main id="all-posts">
         <h1>예약 내역</h1>
-        
-        <form action="/repair/select-repairman" method="GET">
-            <% if(!select_repairman || select_repairman.length === 0) { %>
-                <p><br>예약 내역이 없습니다.</p>
-            <% } else { %>
-                <ol id="posts-list">
-                    <% for(const repair of select_repairman) { %>
-                        <li>
-                            <%- include('includes/repairs-content', {repair:repair}) %>
-                        </li>
-                    <% } %>
-                </ol>
-            <% } %>
-        </form>
+
+        <% if(!select_repairman || select_repairman.length === 0) { %>
+            <p><br>예약 내역이 없습니다.</p>
+        <% } else { %>
+            <ol id="posts-list">
+                <% for(const repair of select_repairman) { %>
+                    <li>
+                        <%- include('includes/repair-content', {repair:repair}) %>
+                    </li>
+                <% } %>
+            </ol>
+        <% } %>
+
 
     
     </main>

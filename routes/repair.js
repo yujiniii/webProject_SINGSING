@@ -21,13 +21,17 @@ router.get('/', async (req,res,next)=>{
 }); // 예약 내역 보여주기(READ)(전체 예약 내역)
 
 router.post('/select-repairman', async(req, res,next)=>{
+    console.log(req.body.repairman);
     const select_repairman = await db.getDb().collection('repair')
-    .find({repairmain: req.body.repairman}, {date:1, repairman:1,
-        model:1, bought:1, reason:1, name:1}).toArray();
-
+    .find({repairman: req.body.repairman}, 
+        {date:1, repairman:1, model:1, bought:1, reason:1, name:1, phone:1,adress:1} )
+    .toArray();
+    console.log(select_repairman);
     res.render('repairman-list', {select_repairman:select_repairman});
 }); // ejs에서 선택한 수리기사 받기 
 
+
+/*
 router.get('/select-repairman', async(req, res, next) => {
     // DB에서 'repair' collection을 찾아 보여줌
     const select_repairman = await db.getDb().collection('repair')
@@ -36,7 +40,8 @@ router.get('/select-repairman', async(req, res, next) => {
 
     // repairs-list.ejs
     res.render('repairman-list', {select_repairman:select_repairman});
-});
+});*/
+
 
 router.post('/', async (req,res,next)=>{
     console.log(req.body);
