@@ -15,11 +15,28 @@ router.get('/', async (req,res,next)=>{
     const repairs = await db.getDb().collection('repair')
     .find({}, {date:1, repairman:1,
         model:1, bought:1, reason:1, name:1}).toArray();
-    
 
     // repairs-list.ejs
     res.render('repairs-list', {repairs:repairs});
-}); // 예약 내역 보여주기(READ)
+}); // 예약 내역 보여주기(READ)(전체 예약 내역)
+
+router.post('/select-repairman', async(req, res,next)=>{
+    const select_repairman = await db.getDb().collection('repair')
+    .find({repairmain: req.body.repairman}, {date:1, repairman:1,
+        model:1, bought:1, reason:1, name:1}).toArray();
+
+    res.render('repairman-list', {select_repairman:select_repairman});
+}); // ejs에서 선택한 수리기사 받기 
+
+router.get('/select-repairman', async(req, res, next) => {
+    // DB에서 'repair' collection을 찾아 보여줌
+    const select_repairman = await db.getDb().collection('repair')
+    .find({repairmain: req.body.repairman}, {date:1, repairman:1,
+        model:1, bought:1, reason:1, name:1}).toArray();
+
+    // repairs-list.ejs
+    res.render('repairman-list', {select_repairman:select_repairman});
+});
 
 router.post('/', async (req,res,next)=>{
     console.log(req.body);
@@ -29,7 +46,7 @@ router.post('/', async (req,res,next)=>{
         
         model : req.body.model,
         bought : req.body.bought,
-        reason : req.body.reson,
+        reason : req.body.reason,
     
         name : req.body.name,
         phone : req.body.phone,
@@ -38,7 +55,6 @@ router.post('/', async (req,res,next)=>{
     // DB에 예약내역 추가
     const result = await db.getDb().collection('repair').insertOne(newRepair);
     console.log(result);
-    // 완료 후 repairs-list.ejs로 전환
     res.redirect('/repair');
 }); // 설치 및 수리 예약하기(CREATE)
 
@@ -48,23 +64,22 @@ router.get('/new', async (req,res,next)=>{
 }); // 설치 및 수리 화면
 
 
-router.get('/:id/user-auth', async (req,res,next)=>{
-    // user-auth.ejs
-    res.render('user-auth', {id : req.params.id})
-}); // 수정 시 비밀번호 검증화면
+router.get('/:id/phone-auth', async (req,res,next)=>{
+    res.render('phone-auth', {id : req.params.id})
+}); // 수정 시 전화번호 검증화면
 
 
-router.post('/:id/user-auth', async (req,res,next)=>{
+router.post('/:id/phone-auth', async (req,res,next)=>{
     const repair = await db.getDb().collection('repair')
     .findOne({_id: new ObjectId(req.params.id)},
-    {date:1, repairman:1, model:1, bought:1, reason:1 , 
-        name:1, phone:1, address:1,password:1});    
+    {date:1, repairman:1, model:1, bought:1, reason:1, 
+        name:1, phone:1, address:1});    
 
-    if(repair.password === crypto.createHash('sha512').update(req.body.password).digest('base64')){
+    if(repair.phone === req.body.phone){
         res.render('modify-repair',{repair:repair})
     }
-    // 비밀번호가 틀리면 password-error.ejs
-    res.render('password-error') 
+    // 비밀번호가 틀리면 phone-error.ejs
+    res.render('phone-error') 
 }); 
 
 router.get('/:id/update', async (req,res,next)=>{
@@ -80,13 +95,13 @@ router.post('/:id/update', async (req,res,next)=>{
     
         model : req.body.model,
         bought : req.body.bought,
-        reason : req.body.reson,
+        reason : req.body.reason,
 
         name : req.body.name,
         phone : req.body.phone,
         address : req.body.address
     }});
-res.redirect('/repair')
+    res.redirect('/repair')
 }); // 예약내역 수정하기(UPDATE)
 
 

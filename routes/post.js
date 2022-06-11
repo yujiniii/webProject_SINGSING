@@ -109,9 +109,9 @@ router.post('/:id/edit',async function(req,res){
           phone_number:req.body.phone_number
           //date: new Date()
         },
-      }
+    }
     );
-  res.redirect('/posts');
+res.redirect('/posts');
 })
 
 // 판매글 삭제(DELETE)

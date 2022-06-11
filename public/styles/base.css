@@ -80,6 +80,23 @@ ul, ol {
 }
 
 
+.btn_del {
+  cursor: pointer;
+  font: inherit;
+  background-color: rgb(236, 54, 54);
+  border: 1px solid rgb(236, 54, 54);
+  color: white;
+  padding: 0.5rem 0.5rem;
+  border-radius: 4px;
+}
+
+.btn_del:hover,
+.btn_del:active {
+  background-color: rgb(208, 36, 36);
+  border-color: 1px solid rgb(208, 36, 36);
+  color: white;
+}
+
 /* Site-wide content / elements */
 
 #main-header {

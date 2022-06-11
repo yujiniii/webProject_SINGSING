@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-  <%- include('includes/head', { title: '작성자 검증' }) %>
+  <%- include('includes/head', { title: '예약자 검증' }) %>
   <link rel="stylesheet" href="/styles/forms.css">
 </head>
 
@@ -12,7 +12,7 @@
     <h1>설치/수리 예약하기</h1>
     
     <h2>예약내역 작성 시 입력한 전화번호를 입력하세요.</h2>
-    <form action="/repair/<%=id%>/user-auth" method="repair">
+    <form action="/repair/<%=id%>/phone-auth" method="POST">
       <div class="form-control">
         <label for="phone">  전화번호(010-0000-0000) : </label>
         <input type="text" id="phone" name="phone" required>

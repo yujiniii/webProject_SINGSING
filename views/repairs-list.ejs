@@ -1,25 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <%- include('includes/head', { title: 'All Posts' }) %>
+    <%- include('includes/head', { title: 'All Repairs' }) %>
   <link rel="stylesheet" href="/styles/posts.css">
 </head>
 <body>
     <%- include('includes/header') %>
 
-    <main id="all-repairs">
+    <main id="all-posts">
         <h1>예약 내역</h1>
-    <% if(!repairs || repairs.length === 0) { %>
-        <p><br>예약 내역이 없습니다.</p>
-    <% } else { %>
-        <ol id="repairs-list">
-            <% for(const repair of repairs) { %>
-                <li>
-                    <%- include('includes/repair-content', {repair:repair}) %>
-                </li>
+        <form action="/repair/select-repairman" method="POST">
+            <div class="form-control">
+                <label for="repairman">수리기사 : </label>
+                <select name="repairman" id="repairman">
+                    <option value="김수리">김수리</option>
+                    <option value="이어컨">이어컨</option>
+                    <option value="박기사">박기사</option>
+                </select>
+            </div>
+            <button class="btn">예약내역 확인</button>
+        </form>
+        <form action="/repair" method="get">
+            <% if(!repairs || repairs.length === 0) { %>
+                <p><br>예약 내역이 없습니다.</p>
+            <% } else { %>
+                <ol id="posts-list">
+                    <% for(const repair of repairs) { %>
+                        <li>
+                            <%- include('includes/repair-content', {repair:repair}) %>
+                        </li>
+                    <% } %>
+                </ol>
             <% } %>
-        </ol>
-    <% } %>
+        </form>
+
+    
     </main>
 </body>
 </html>
