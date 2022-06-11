@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <%- include('includes/head', { title: '채팅상담' }) %>
+    <script
+      src="https://code.jquery.com/jquery-3.4.1.js"
+      integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+      crossorigin="anonymous"
+    ></script>
+    
+    <script type="text/javascript" src="socket.io/socket.io.js"></script>
+
+    <link rel="stylesheet" href="/styles/chat.css" />
+    <link rel="stylesheet" href="/styles/posts.css">
+    <title>실시간 채팅</title>
+  </head>
+  <body>
+    <%- include('includes/header') %>
+    <div id="login-area">
+      <div id="login-text"><h1>필수 정보 입력</h1></div>
+      <div id="login-form-area">
+        <form id="login-form">
+          <input
+            id="user-name"
+            type="text"
+            placeholder="이름"
+            autocomplete="off"
+          />
+          <input
+            id="phone-number"
+            type="text"
+            placeholder="010-0000-0000"
+            autocomplete="off"
+          /><br>
+          <input class='btn' id="login-submit" type="submit" value="접속하기" />
+        </form>
+      </div>
+    </div>
+    <div id="chat-area">
+      <h1>채팅 상담</h1>
+      <div id="users-area">
+        <div id="online-users-text">
+          <h1>상담 대기 인원</h1>
+        </div>
+        <div id="online-users">
+          <ul id="users"></ul>
+        </div>
+      </div>
+
+      <div id="message-area">
+        <div id="display-message-area">
+          <ul id="messages"></ul>
+        </div>
+
+        <div id="message-form-area">
+          <form id="message-form">
+            <input
+              id="message"
+              type="text"
+              placeholder="상담 내용을 상세하게 적어주세요"
+              autocomplete="off"
+            />
+            <input class='btn' id="message-submit" type="submit" value="보내기" />
+          </form>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script type="text/javascript">
+      //const socket = io();
+      var socket = io.connect('http://localhost:3000')
+      function updateUsers(list){
+          for(let i = 0;i<list.length;i++){
+              $("#users").append("<li><b>"+list[i]+"</b></li>");
+          }
+      }
+      $("#login-form").submit(function (event) {
+          event.preventDefault(); //이벤트 취소
+          if($("#user-name").val() == "" || $("#user-name").val() == " "){
+              alert("Invaild user name");
+          if($("#phone-number").val() == "" || $("#phone-number").val() == " "){
+          alert("Invaild phone-number");
+          }
+          } else{
+              $username = $("#user-name").val() + '('+ $("#phone-number").val() +')'// get username
+              $("#login-area").hide();
+              $("#chat-area").show();
+
+              $("#messages").html(""); // 오래된 메세지 삭제
+              socket.emit("has connected", $username);
+          }
+      });
+
+      $("#message-form").submit(function (event){
+          event.preventDefault(); // 이벤트 취소, 초기화하는 역할(아마?)
+          if($("message").val() == "" || $("message").val() == " "){
+              alert("메세지를 입력하세요");
+          } else {
+              socket.emit("new message",{
+                  username : $username,
+                  message : $("#message").val(),
+              });
+              $("#message").val(""); // CLEAR text area
+          }
+      });
+      socket.on("has connected", function(data){
+          $("#users").html(""); // 사용자 disconnect
+          updateUsers(data.usersList);
+          $("#messages").append(
+            "<li><i><b>"+data.username+"</b> 님의 상담을 시작합니다. </i> <br> 상담원을 연결중입니다. 잠시만 기다려주세요! </li>"
+          ); //다른 사용자 접속 알림
+      });
+      socket.on("has disconnected",function(data){
+          $("#users").html("");
+          updateUsers(data.usersList);
+          $("#messages").append(
+            "<li><i><b>"+data.username+"</b> 님의 상담이 종료되었습니다. </i> </li>"
+          );
+      });
+      socket.on("new message", function(data){
+          $("#messages").append(
+            "<li><i><b>"+data.username+"</b> : "+data.message+" </i> </li>"
+          );
+      });
+  </script>
