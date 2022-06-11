@@ -8,8 +8,8 @@ const chatRoutes = require('./routes/chat');
 const repairRoutes = require('./routes/repair');
 const db = require('./database')
 const app = express();
-const server = http.Server(app);
-const io = require('socket.io')(server);
+const server = http.createServer(app);
+
 let users = [];
 
 app.set('view engine', 'ejs');
@@ -36,13 +36,13 @@ app.use(function (error, req, res, next) {
 });
 
 db.connectToDatabase().then(function(){
-  app.listen(3000,()=>{
+  server.listen(3000,()=>{
     const dir = './images';
     if (!fs.existsSync(dir)) {fs.mkdirSync(dir);}
   });
 });
 
-
+const io = require('socket.io')(server);
 
 io.on("connection",(socket)=>{
   let name = "";
