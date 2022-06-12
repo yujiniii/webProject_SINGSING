@@ -5,7 +5,7 @@ const router = express.Router();
 const crypto = require('crypto'); 
 const ObjectId = mongodb.ObjectId;
 const multer = require('multer');
-const upload = multer({
+const upload = multer({ 
     storage:  multer.diskStorage({ 
         destination: (req,file,cb)=>{ 
             cb(null, 'images');
@@ -29,7 +29,7 @@ router.get('/new', async function(req,res){
     res.render('create-post');
 });
 
-// 판매 글 작성(CREATE)
+// 판매 글 작성(CREATE) + multer
 router.post('/', upload.single('image') ,async function(req,res){
     let img = req.file; 
         console.log("req.file : ",img)

@@ -10,7 +10,7 @@
     
     <script type="text/javascript" src="socket.io/socket.io.js"></script>
 
-    <link rel="stylesheet" href="/styles/chat.css" />
+    <link rel="stylesheet" href="/styles/chat.css"/>
     <link rel="stylesheet" href="/styles/posts.css">
     <title>실시간 채팅</title>
   </head>
@@ -57,7 +57,7 @@
             <input
               id="message"
               type="text"
-              placeholder="상담 내용을 상세하게 적어주세요"
+              placeholder="상담원이 들어오면 상담 내용을 상세하게 적어주세요"
               autocomplete="off"
             />
             <input class='btn' id="message-submit" type="submit" value="보내기" />
@@ -106,9 +106,15 @@
       socket.on("has connected", function(data){
           $("#users").html(""); // 사용자 disconnect
           updateUsers(data.usersList);
-          $("#messages").append(
-            "<li><i><b>"+data.username+"</b> 님의 상담을 시작합니다. </i> <br> 상담원을 연결중입니다. 잠시만 기다려주세요! </li>"
-          ); //다른 사용자 접속 알림
+          if (data.username.includes("상담원")){
+            $("#messages").append(
+            "<li><i>기다려 주셔서 감사합니다!<br>상담원이 연결되었습니다. 상담을 원하는 내용을 말해주세요.</i> </li>"
+            );
+          } else {
+            $("#messages").append(
+              "<li><i><b>"+data.username+"</b> 님의 상담을 시작합니다. </i> <br> 상담원을 연결중입니다. 잠시만 기다려주세요! </li>"
+            ); //다른 사용자 접속 알림
+          }
       });
       socket.on("has disconnected",function(data){
           $("#users").html("");
