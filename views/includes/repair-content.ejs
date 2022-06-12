@@ -1,16 +1,15 @@
 <article class="post-item">
 
     <p>예약날짜 : <%=repair.date%></p>
+    <p>예약시간 : <%=repair.time%></p>
     <p>수리기사 : <%=repair.repairman%></p>
-    <br>
+    
     <p>품   번 : <%=repair.model%></p>
     <p>구입시기: <%=repair.bought%></p>
     <p>예약이유: <%=repair.reason%></p>
-    <br>
+    
     <p>예약자명: <%=repair.name%></p>
-    <p>전화번호: <%=repair.phone%></p>
-    <p>주   소: <%=repair.address%></p>
-    <br>
+    
 
     <div class="post-actions">
         <a class="btn_del" href="/repair/<%=repair._id%>/delete"><b>삭 제</b></a>

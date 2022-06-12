@@ -8,8 +8,13 @@
     <%- include('includes/header') %>
 
     <main id="all-posts">
-        <h1>예약 내역</h1>
+        <h1><%=man%> 기사 예약 내역</h1>
 
+        <form action="/repair" method="GET">
+            <a href="/repair"></a><button class="btn_list">전체 예약 목록 보기</button></a>
+        </form>
+
+        <br><br><hr>
         <% if(!select_repairman || select_repairman.length === 0) { %>
             <p><br>예약 내역이 없습니다.</p>
         <% } else { %>

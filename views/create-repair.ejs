@@ -3,6 +3,7 @@
 <head>
     <%- include('includes/head', { title: 'Add new post' }) %>
     <link rel="stylesheet" href="/styles/forms.css">
+
 </head>
 <body>
     <%- include('includes/header') %>
@@ -10,10 +11,29 @@
         <h1>설치/수리 예약하기</h1>
         <form action="/repair" method="post">
         
-            <!-- https://axce.tistory.com/31 -->
             <div class="form-control">
                 <label for="date">예약날짜 : </label>
-                <input type="datetime-local" id="date" name="date" require maxlength="255">
+                <p>당일 예약은 불가합니다.</p>
+                <input type="date" id="date" name="date" require maxlength="255">
+            </div>
+            <!-- 달력의 최소범위를 현재날짜+1로 적용 -->
+            <script> 
+                var today = new Date();
+                var dd = today.getDate()+1;
+                var mm = today.getMonth() + 1;
+                var yyyy = today.getFullYear();
+                if(dd<10) {dd='0'+dd}
+                if(mm<10) {mm='0'+mm}
+                today = yyyy+'-'+mm+'-'+dd;
+                document.getElementById("date").setAttribute("min", today);
+             </script>
+    
+            <div class="form-control">
+                <label for="time">예약시간 : </label>
+                <p>예약 가능 시간은 오전 10시부터 오후 6시까지이며, <br>30분 단위입니다.</p>
+                <input type="time" id="time" name="time"
+                 min="10:00" max="18:00" step="1800" require maxlength="255"> 
+                 <!-- 예약 시간은 10시부터 17시까지 30분 단위 -->
             </div>
             <div class="form-control">
                 <label for="repairman">수리기사 : </label>
@@ -69,7 +89,7 @@
         </form>
 
         <form action="/repair" method="GET">
-            <a href="/repair"></a><button class="btn">예약 목록 보기</button></a>
+            <a href="/repair"></a><button class="btn_list">예약 목록 보기</button></a>
         </form>
     </main>
 </body>

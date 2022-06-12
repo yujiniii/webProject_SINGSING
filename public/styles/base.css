@@ -97,6 +97,23 @@ ul, ol {
   color: white;
 }
 
+.btn_list {
+  cursor: pointer;
+  font: inherit;
+  background-color: rgb(53, 110, 223);
+  border: 1px solid rgb(53, 110, 223);
+  color: white;
+  padding: 0.5rem 0.5rem;
+  border-radius: 4px;
+}
+
+.btn_list:hover,
+.btn_list:active {
+  background-color: rgb(33, 89, 201);
+  border-color: 1px solid rgb(33, 89, 201);
+  color: white;
+}
+
 /* Site-wide content / elements */
 
 #main-header {

@@ -7,18 +7,37 @@
 <body>
     <%- include('includes/header') %>
     <h1>예약내역 수정하기</h1>
-    <form action="/repair<%=repair._id%>/update" method="POST">
+    <form action="/repair/<%=repair._id%>/update" method="POST">
     
         <div class="form-control">
             <label for="date">예약날짜 : </label>
-            <input type="datetime-local" id="date" name="date" value="<%=repair.date%>" require maxlength="255">
+            <input type="date" id="date" name="date" value="<%=repair.date%>" require maxlength="255">
+        </div>
+        <!-- 달력의 최소범위를 현재날짜+1로 적용 -->
+        <script> 
+            var today = new Date();
+            var dd = today.getDate()+1;
+            var mm = today.getMonth() + 1;
+            var yyyy = today.getFullYear();
+            if(dd<10) {dd='0'+dd}
+            if(mm<10) {mm='0'+mm}
+            today = yyyy+'-'+mm+'-'+dd;
+            document.getElementById("date").setAttribute("min", today);
+         </script>
+
+        <div class="form-control">
+            <label for="time">예약시간 : </label>
+            <p>예약 가능 시간은 오전 10시부터 오후 6시까지이며, <br>30분 단위입니다.</p>
+            <input type="time" id="time" name="time" value="<%=repair.time%>"
+             min="10:00" max="18:00" step="1800" require maxlength="255"> 
+             <!-- 예약 시간은 10시부터 17시까지 30분 단위 -->
         </div>
         <div class="form-control">
             <label for="repairman">수리기사 : </label>
             <select name="repairman" id="repairman" value="<%=repair.repairman%>">
-                <option value="1">김수리</option>
-                <option value="2">이어컨</option>
-                <option value="3">박기사</option>
+                <option value="김수리">김수리</option>
+                <option value="김수리">이어컨</option>
+                <option value="김수리">박기사</option>
             </select>
         </div>
 
@@ -28,23 +47,23 @@
         </div>
         <div class="form-control">
             <label for="bought">구입시기 : </label>
-            <select name="reason" id="reason" value="<%=repair.bought%>">
-                <option value="1">1개월 이내</option>
-                <option value="2">1년 이내</option>
-                <option value="3">1년~2년 이내</option>
-                <option value="4">2년 이상</option>
+            <select name="bought" id="bought" value="<%=repair.bought%>">
+                <option value="1개월 이내">1개월 이내</option>
+                <option value="1년 이내">1년 이내</option>
+                <option value="1년~2년 이내">1년~2년 이내</option>
+                <option value="2년 이상">2년 이상</option>
             </select>
         </div>
         <div class="form-control">
             <label for="reason">예약이유 : </label>
             <select name="reason" id="reason" value="<%=repair.reason%>">
-                <option value="1">냉방</option>
-                <option value="2">난방</option>
-                <option value="3">냄새</option>
-                <option value="4">누수</option>
-                <option value="5">리모컨/버튼</option>
-                <option value="6">소음/진동</option>
-                <option value="7">설치/연결</option>
+                <option value="냉방">냉방</option>
+                <option value="난방">난방</option>
+                <option value="냄새">냄새</option>
+                <option value="누수">누수</option>
+                <option value="리모컨/버튼">리모컨/버튼</option>
+                <option value="소음/진동">소음/진동</option>
+                <option value="설치/연결">설치/연결</option>
             </select>
         </div>
 
@@ -62,8 +81,6 @@
         </div>
 
         <button class="btn">저장</button>
-        <a href="/repair"></a><button class="btn">예약 목록 보기</button></a>
-
     </form>
 </body>
 </html>
