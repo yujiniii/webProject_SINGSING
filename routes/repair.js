@@ -5,11 +5,6 @@ const router = express.Router();
 const ObjectId = mongodb.ObjectId;
 
 
-// router.get('/', function(req,res){
-//     res.render('404');
-// });
-
-
 router.get('/', async (req,res,next)=>{
     // DB에서 'repair' collection을 찾아 보여줌
     const repairs = await db.getDb().collection('repair')
@@ -19,6 +14,7 @@ router.get('/', async (req,res,next)=>{
     // repairs-list.ejs
     res.render('repairs-list', {repairs:repairs});
 }); // 예약 내역 보여주기(READ)(전체 예약 내역)
+
 
 router.post('/select-repairman', async(req, res,next)=>{
     console.log(req.body.repairman);
@@ -31,6 +27,7 @@ router.post('/select-repairman', async(req, res,next)=>{
     console.log(select_repairman);
     res.render('repairman-list', {select_repairman:select_repairman, man:man});
 }); // ejs에서 선택한 수리기사 받기 
+
 
 
 router.post('/', async (req,res,next)=>{
@@ -51,23 +48,22 @@ router.post('/', async (req,res,next)=>{
     const dd = req.body.date;
     const tt = req.body.time;
     const rr = req.body.repairman;
-
-    // 예약하려는 내역과 같은 날짜, 시간, 기사님이 하나라도 있다면 예약 불가
-    const inDt = await db.getDb().collection('repair').findOne({date:dd, time:tt, repairman:rr},{date:1, time:1});
-    if(inDt.date==dd) { // 날짜가 같을 때
-        if(inDt.time==tt) { // 시간이 같을 때
-            if(inDt.repairman==rr) { // 기사가 같을 때
-                res.render('create-error');
-            } else { // 날짜, 시간, 기사가 모두 다를 때
-                // DB에 예약내역 추가
-                const result = await db.getDb().collection('repair').insertOne(newRepair);
-                console.log(result);
-                res.redirect('/repair');
-            } 
+    const all = await db.getDb().collection('repair').find({},{}).toArray()
+    if(!all || all.length === 0){ //첫 입력시 중복 예약 검증 X
+        const result = await db.getDb().collection('repair').insertOne(newRepair);
+        console.log(result);
+        res.redirect('/repair');
+    } else {
+        const inDt = await db.getDb().collection('repair').findOne({date:dd, time:tt, repairman:rr},{date:1, time:1});
+        if(inDt.date==dd && inDt.time==tt && inDt.repairman==rr){ // 날짜, 시간, 기사가 전부 같은 예약
+            res.render('create-error'); // 예약하려는 내역과 같은 날짜, 시간, 기사님이 하나라도 있다면 예약 불가
+        } else {
+            const result = await db.getDb().collection('repair').insertOne(newRepair);
+            console.log(result);
+            res.redirect('/repair');
         }
-    } 
-    console.log(888);
-    
+    }
+    const inDt = await db.getDb().collection('repair').findOne({date:dd, time:tt, repairman:rr},{date:1, time:1});
 }); // 설치 및 수리 예약하기(CREATE)
 
 

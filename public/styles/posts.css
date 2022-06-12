@@ -78,5 +78,7 @@
 }
 
 #body {
-  white-space: pre-wrap; /* This ensures that line breaks and whitespace are kept */
+  white-space: pre-wrap; 
 }
+
+body>a {position: fixed; bottom: 40%; right: 10%;}
