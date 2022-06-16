@@ -28,7 +28,8 @@
       </div>
       <div class="form-control">
         <label for="state">상   태 : </label>
-          <select id="state" name="state" disabled>
+          <select id="state" name="state">
+              <option value="<%=post.state%>">기존 값 : <%=post.state%></option>
               <option value="A">A</option>
               <option value="B">B</option>
               <option value="C">C</option>

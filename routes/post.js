@@ -85,7 +85,7 @@ router.post('/:id/user-auth',async function(req,res){
     const post = await db
     .getDb()
     .collection('posts')
-    .findOne({_id: new ObjectId(req.params.id)},{title:1,code:1,detail:1,price:1,image:1 ,password:1,phone_number:1});    // db.posts.find
+    .findOne({_id: new ObjectId(req.params.id)},{title:1,code:1,detail:1,state:1,price:1,image:1 ,password:1,phone_number:1});    // db.posts.find
 
     if(post.password === crypto.createHash('sha512').update(req.body.password).digest('base64')){
         res.render('modify-post',{post:post})
@@ -104,6 +104,7 @@ router.post('/:id/edit',async function(req,res){
         $set: {
           title: req.body.title,
           code: req.body.code,
+          state : req.body.state,
           price: req.body.price,
           detail: req.body.detail,
           phone_number:req.body.phone_number
