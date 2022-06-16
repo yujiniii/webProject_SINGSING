@@ -2,10 +2,10 @@ const express = require('express');
 const db = require('../database');
 const mongodb = require('mongodb');
 const router = express.Router();
-const crypto = require('crypto'); 
+const crypto = require('crypto');  // 암호화 관련 부분
 const ObjectId = mongodb.ObjectId;
 const multer = require('multer');
-const upload = multer({ 
+const upload = multer({  //file처리 관련 부분
     storage:  multer.diskStorage({ 
         destination: (req,file,cb)=>{ 
             cb(null, 'images');
@@ -24,7 +24,7 @@ router.get('/', async function(req,res){
     res.render('posts-list',{posts:posts});
 });
 
-
+// 판매 글 작성 page get
 router.get('/new', async function(req,res){
     res.render('create-post');
 });
@@ -67,18 +67,18 @@ router.get('/:id/buy',async function(req,res){
 
     await db.getDb()
     .collection('posts')
-    .updateOne({_id: new ObjectId(req.params.id)}, { $set: {sale: 1}, });  // db.posts.update
+    .updateOne({_id: new ObjectId(req.params.id)}, { $set: {sale: 1}, });  // db.posts.update, 구매 처리
 
     res.render('call', {call:call});   
     //res.redirect('/posts');
-})
+});
 
 
 
 // 수정 시 비밀번호 검증화면 get
 router.get('/:id/user-auth',async function(req,res){
     res.render('user-auth',{id : req.params.id})
-})
+});
 
 // 수정 시 비밀번호 검증
 router.post('/:id/user-auth',async function(req,res){
@@ -87,11 +87,11 @@ router.post('/:id/user-auth',async function(req,res){
     .collection('posts')
     .findOne({_id: new ObjectId(req.params.id)},{title:1,code:1,detail:1,state:1,price:1,image:1 ,password:1,phone_number:1});    // db.posts.find
 
-    if(post.password === crypto.createHash('sha512').update(req.body.password).digest('base64')){
+    if(post.password === crypto.createHash('sha512').update(req.body.password).digest('base64')){ // 암호화로 비교
         res.render('modify-post',{post:post})
-    }else{res.render('password-error') // 틀리면 password-error 페이지 랜더링
+    } else {res.render('password-error') // 틀리면 password-error 페이지 랜더링
     }
-})
+});
 
 
 // 판매글 수정(UPDATE)
@@ -108,12 +108,11 @@ router.post('/:id/edit',async function(req,res){
           price: req.body.price,
           detail: req.body.detail,
           phone_number:req.body.phone_number
-          //date: new Date()
         },
-    }
-    );
+    }); // db.posts.update
 res.redirect('/posts');
-})
+});
+
 
 // 판매글 삭제(DELETE)
 router.post('/:id/delete',async function(req,res){

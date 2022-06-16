@@ -93,7 +93,7 @@
       });
 
       $("#message-form").submit(function (event){
-          event.preventDefault(); // 이벤트 취소, 초기화하는 역할(아마?)
+          event.preventDefault(); // 이벤트 취소, 초기화
           if($("message").val() == "" || $("message").val() == " "){
               alert("메세지를 입력하세요");
           } else {
@@ -114,7 +114,7 @@
           } else {
             $("#messages").append(
               "<li><i><b>"+data.username+"</b> 님의 상담을 시작합니다. </i> <br> 상담원을 연결중입니다. 잠시만 기다려주세요! </li>"
-            ); //다른 사용자 접속 알림
+            ); // 사용자 접속 알림
           }
       });
       socket.on("has disconnected",function(data){

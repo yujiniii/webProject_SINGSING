@@ -25,6 +25,7 @@ app.use('/posts', postRoutes);
 app.use('/repair', repairRoutes);
 app.use('/chat', chatRoutes);
 
+/* error 처리 */
 app.use(function (error, req, res, next) {
   console.log(error);
   res.status(500).render('500');
@@ -35,6 +36,8 @@ app.use(function (error, req, res, next) {
   res.status(404).render('404');
 });
 
+
+/* server start */
 db.connectToDatabase().then(function(){
   server.listen(3000,()=>{
     const dir = './images';
@@ -42,22 +45,24 @@ db.connectToDatabase().then(function(){
   });
 });
 
+
+/* socket.io */
 const io = require('socket.io')(server);
 
 io.on("connection",(socket)=>{
   let name = "";
-  socket.on("has connected", (username)=>{  //event : has connected
+  socket.on("has connected", (username)=>{ 
       name = username;
       users.push(username);
       io.emit("has connected",{username:username, usersList:users})
   });
-  socket.on("has disconnected",()=>{   //event : has disconnected
-      users.splice(users.indexOf(name),1); // 사용자가 접속을 끊으면 users리스트에서 splice함수를 통해 나간 사용자를 제거한다.
+  socket.on("has disconnected",()=>{  
+      users.splice(users.indexOf(name),1); 
       io.emit("has disconnected", {username : name, usersList : users})
   });
 
-  socket.on("new message", (data)=>{  //event : new message
-      io.emit("new message", data);   //io.emit(event, message) :  모든 소켓에 메세지를 보냄
+  socket.on("new message", (data)=>{  
+      io.emit("new message", data); 
   });
 });
 
