@@ -54,16 +54,18 @@ router.post('/', async (req,res,next)=>{
         console.log(result);
         res.redirect('/repair');
     } else {
-        const inDt = await db.getDb().collection('repair').findOne({date:dd, time:tt, repairman:rr},{date:1, time:1});
-        if(inDt.date==dd && inDt.time==tt && inDt.repairman==rr){ // 날짜, 시간, 기사가 전부 같은 예약
-            res.render('create-error'); // 예약하려는 내역과 같은 날짜, 시간, 기사님이 하나라도 있다면 예약 불가
-        } else {
+        const inDt = await db.getDb().collection('repair')
+        .findOne({date:dd, time:tt, repairman:rr},{date:1, time:1, repairman:1});
+        console.log(inDt);
+        if(inDt == null) {
             const result = await db.getDb().collection('repair').insertOne(newRepair);
             console.log(result);
             res.redirect('/repair');
-        }
+        } else if (inDt.date==dd && inDt.time==tt && inDt.repairman==rr ){ // 날짜, 시간, 기사가 전부 같은 예약
+            res.render('create-error'); // 예약하려는 내역과 같은 날짜, 시간, 기사님이 하나라도 있다면 예약 불가            
+        } 
+        
     }
-    const inDt = await db.getDb().collection('repair').findOne({date:dd, time:tt, repairman:rr},{date:1, time:1});
 }); // 설치 및 수리 예약하기(CREATE)
 
 
