@@ -15,12 +15,12 @@
         </div>
         <!-- 달력의 최소범위를 현재날짜+1로 적용 -->
         <script> 
-            var today = new Date();
-            var dd = today.getDate()+1;
-            var mm = today.getMonth() + 1;
-            var yyyy = today.getFullYear();
-            if(dd<10) {dd='0'+dd}
-            if(mm<10) {mm='0'+mm}
+            var today = new Date(); // 현재 날짜 가져오기
+            var dd = today.getDate()+1; // 날짜만 가져오기(다음 날부터니까 +1 해줌)
+            var mm = today.getMonth() + 1; // 월 가져오기(0부터 시작이라 +1 해줌)
+            var yyyy = today.getFullYear(); // 년 가져오기
+            if(dd<10) {dd='0'+dd} // 10일 미만이면 앞에 0 추가
+            if(mm<10) {mm='0'+mm} // 10월 미만이면 앞에 0 추가
             today = yyyy+'-'+mm+'-'+dd;
             document.getElementById("date").setAttribute("min", today);
          </script>
@@ -34,7 +34,8 @@
         </div>
         <div class="form-control">
             <label for="repairman">수리기사 : </label>
-            <select name="repairman" id="repairman" value="<%=repair.repairman%>">
+            <select name="repairman" id="repairman">
+                <option value="<%=repair.repairman%>">기존 값 : <%=repair.repairman%></option>
                 <option value="김수리">김수리</option>
                 <option value="김수리">이어컨</option>
                 <option value="김수리">박기사</option>
@@ -47,7 +48,8 @@
         </div>
         <div class="form-control">
             <label for="bought">구입시기 : </label>
-            <select name="bought" id="bought" value="<%=repair.bought%>">
+            <select name="bought" id="bought">
+                <option value="<%=repair.bought%>">기존 값 : <%=repair.bought%></option>
                 <option value="1개월 이내">1개월 이내</option>
                 <option value="1년 이내">1년 이내</option>
                 <option value="1년~2년 이내">1년~2년 이내</option>
@@ -57,6 +59,7 @@
         <div class="form-control">
             <label for="reason">예약이유 : </label>
             <select name="reason" id="reason" value="<%=repair.reason%>">
+                <option value="<%=repair.reason%>">기존 값 : <%=repair.reason%></option>
                 <option value="냉방">냉방</option>
                 <option value="난방">난방</option>
                 <option value="냄새">냄새</option>

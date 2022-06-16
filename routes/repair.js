@@ -88,9 +88,11 @@ router.post('/:id/phone-auth', async (req,res,next)=>{
     // 비밀번호가 일치했을 때
     if(repair.phone === req.body.phone){
         res.render('modify-repair',{repair:repair})
+    } else {
+        // 비밀번호가 다를 때
+        res.render('phone-error') 
     }
-    // 비밀번호가 다를 때
-    res.render('phone-error') 
+    
 }); 
 
 router.get('/:id/update', async (req,res,next)=>{
