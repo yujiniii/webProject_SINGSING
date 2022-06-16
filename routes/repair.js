@@ -57,12 +57,12 @@ router.post('/', async (req,res,next)=>{
         const inDt = await db.getDb().collection('repair')
         .findOne({date:dd, time:tt, repairman:rr},{date:1, time:1, repairman:1});
         console.log(inDt);
-        if(inDt == null) {
+        if(inDt == null) { // 중복된 내역이 없어 null값이 나온다면 예약 O
             const result = await db.getDb().collection('repair').insertOne(newRepair);
             console.log(result);
             res.redirect('/repair');
         } else if (inDt.date==dd && inDt.time==tt && inDt.repairman==rr ){ // 날짜, 시간, 기사가 전부 같은 예약
-            res.render('create-error'); // 예약하려는 내역과 같은 날짜, 시간, 기사님이 하나라도 있다면 예약 불가            
+            res.render('create-error'); // 예약하려는 내역과 같은 날짜, 시간, 기사님이 하나라도 있다면 예약 X            
         } 
         
     }
@@ -92,7 +92,6 @@ router.post('/:id/phone-auth', async (req,res,next)=>{
         // 비밀번호가 다를 때
         res.render('phone-error') 
     }
-    
 }); 
 
 router.get('/:id/update', async (req,res,next)=>{
