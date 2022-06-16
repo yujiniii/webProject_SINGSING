@@ -85,12 +85,12 @@ router.post('/:id/user-auth',async function(req,res){
     const post = await db
     .getDb()
     .collection('posts')
-    .findOne({_id: new ObjectId(req.params.id)},{title:1,code:1,detail:1,price:1,image:1 ,password:1});    // db.posts.find
+    .findOne({_id: new ObjectId(req.params.id)},{title:1,code:1,detail:1,price:1,image:1 ,password:1,phone_number:1});    // db.posts.find
 
     if(post.password === crypto.createHash('sha512').update(req.body.password).digest('base64')){
         res.render('modify-post',{post:post})
+    }else{res.render('password-error') // 틀리면 password-error 페이지 랜더링
     }
-    res.render('password-error') // 틀리면 password-error 페이지 랜더링
 })
 
 
