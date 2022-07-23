@@ -2,12 +2,12 @@
 <html lang="en">
 
 <head>
-  <%- include('includes/head', { title: '판매상품 수정' }) %>
+  <%- include('../includes/head', { title: '판매상품 수정' }) %>
   <link rel="stylesheet" href="/styles/forms.css">
 </head>
 
 <body>
-  <%- include('includes/header') %>
+  <%- include('../includes/header') %>
   <main>
     <h1>수정하기</h1>
     <form action="/posts/<%=post._id%>/edit" method="POST">

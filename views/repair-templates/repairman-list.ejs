@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <%- include('includes/head', { title: 'All Repairs' }) %>
+    <%- include('../includes/head', { title: 'All Repairs' }) %>
   <link rel="stylesheet" href="/styles/posts.css">
 </head>
 <body>
-    <%- include('includes/header') %>
+    <%- include('../includes/header') %>
 
     <main id="all-posts">
         <h1><%=man%> 기사 예약 내역</h1>
@@ -21,7 +21,7 @@
             <ol id="posts-list">
                 <% for(const repair of select_repairman) { %>
                     <li>
-                        <%- include('includes/repair-content', {repair:repair}) %>
+                        <%- include('../includes/repair-content', {repair:repair}) %>
                     </li>
                 <% } %>
             </ol>

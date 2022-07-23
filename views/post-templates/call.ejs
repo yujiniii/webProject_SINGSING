@@ -2,11 +2,11 @@
 <html lang="en">
 
 <head>
-  <%- include('includes/head', { title: '구매 완료' }) %>
+  <%- include('../includes/head', { title: '구매 완료' }) %>
 </head>
 
 <body>
-  <%- include('includes/header') %>
+  <%- include('../includes/header') %>
   <main>
     <script>confirm('판매자 연락처 : <%=call.phone_number%>')</script>
     <h1><%=call.title%> 을 구매하였습니다!!</h1>

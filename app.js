@@ -28,12 +28,12 @@ app.use('/chat', chatRoutes);
 /* error 처리 */
 app.use(function (error, req, res, next) {
   console.log(error);
-  res.status(500).render('500');
+  res.status(500).render('error-templates/500');
 });
 
 app.use(function (error, req, res, next) {
   console.log(error);
-  res.status(404).render('404');
+  res.status(404).render('error-templates/404');
 });
 
 
