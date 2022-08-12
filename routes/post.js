@@ -1,7 +1,20 @@
 const express = require('express');
 const router = express.Router();
-const multerSetup = require('../util/multerSetup');
 const postController = require('../controller/post-controller')
+const multer = require('multer');
+
+
+
+const upload = multer({  //file처리 관련 부분
+    storage:  multer.diskStorage({ 
+        destination: (req,file,cb)=>{ 
+            cb(null, 'images');
+        },
+        filename: (req,file,cb)=>{ 
+            cb(null, new Date().valueOf()+"."+file.mimetype.split('/')[1]);
+        }
+    }),
+});
 
 
 // 판매 글 목록 조회(READ)
@@ -11,7 +24,7 @@ router.get('/', postController.getAllPost);
 router.get('/new', postController.getWritePage);
 
 // 판매 글 작성(CREATE) + multer
-router.post('/', multerSetup.single('image'), postController.postPostPage);
+router.post('/', upload.single('image'), postController.postPostPage);
 
 // 구매하기 버튼 클릭 (거래 완료 처리됨)
 router.get('/:id/buy',postController.getBuyPage);
