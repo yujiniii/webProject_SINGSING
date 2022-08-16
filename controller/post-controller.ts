@@ -1,6 +1,6 @@
 const db = require('../database');
 const mongodb = require('mongodb');
-const crypto = require('crypto');  // 암호화 관련 부분
+crypto = require('crypto');  // 암호화 관련 부분
 const ObjectId = mongodb.ObjectId;
 
 async function getAllPost(req,res){

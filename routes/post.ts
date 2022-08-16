@@ -1,5 +1,5 @@
-const express = require('express');
-const router = express.Router();
+let express = require('express');
+let router = express.Router();
 const postController = require('../controller/post-controller')
 const multer = require('multer');
 
@@ -18,7 +18,7 @@ const upload = multer({  //file처리 관련 부분
 
 
 // 판매 글 목록 조회(READ)
-router.get('/', postController.getAllPost);
+indexRoute.router.get('/', postController.getAllPost);
 
 // 판매 글 작성 page get
 router.get('/new', postController.getWritePage);

@@ -5,4 +5,5 @@ const router = express.Router();
 router.get('/', function(req,res){
     res.redirect('/posts');
 });
-module.exports = router;
+
+export { router };
