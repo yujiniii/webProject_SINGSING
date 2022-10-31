@@ -67,7 +67,7 @@ async function postEditValidate(req,res){
     .findOne({_id: new ObjectId(req.params.id)},{title:1,code:1,detail:1,state:1,price:1,image:1 ,password:1,phone_number:1});    // db.posts.find
 
     if(post.password === crypto.createHash('sha512').update(req.body.password).digest('base64')){ // 암호화로 비교
-        res.render('modify-post',{post:post})
+        res.render('post-templates/modify-post',{post:post})
     } else {res.render('error-templates/password-error') // 틀리면 password-error 페이지 랜더링
     }
 }

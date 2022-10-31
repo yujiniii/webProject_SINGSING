@@ -37,14 +37,14 @@ app.use(function (error, req, res, next) {
 });
 
 /* server start */
+
 db.connectToDatabase().then(function () {
   server.listen(3000, () => {
     const dir = "./images";
     if (!fs.existsSync(dir)) {
       fs.mkdirSync(dir);
     }
-  });
-});
+
 
 /* socket.io */
 const io = require("socket.io")(server);

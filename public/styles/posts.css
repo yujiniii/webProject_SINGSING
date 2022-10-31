@@ -81,4 +81,4 @@
   white-space: pre-wrap; 
 }
 
-body>a {position: fixed; bottom: 40%; right: 10%;}
+.floating{position: fixed; bottom: 40%; right: 10%;}
